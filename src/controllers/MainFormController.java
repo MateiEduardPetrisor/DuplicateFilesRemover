@@ -24,13 +24,20 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 
 public class MainFormController implements Initializable {
 
 	private File folderPath;
 	private Map<String, String> fileHashes;
+
+	@FXML
+	private AnchorPane anchorPane;
 
 	@FXML
 	private ResourceBundle resources;
@@ -69,14 +76,39 @@ public class MainFormController implements Initializable {
 	private Label LabelStatus;
 
 	@FXML
+	void onDragOverEvent(DragEvent event) {
+		if (event.getGestureSource() != this.anchorPane && event.getDragboard().hasFiles()) {
+			event.acceptTransferModes(TransferMode.COPY);
+		}
+		event.consume();
+	}
+
+	@FXML
+	void onDragDroppedEvent(DragEvent event) {
+		Dragboard dragboard = event.getDragboard();
+		if (dragboard.hasFiles()) {
+			String folderName = dragboard.getFiles().get(0).getAbsolutePath();
+			this.folderPath = new File(folderName);
+			if (this.folderPath.isDirectory()) {
+				this.TextFieldFolder.setText(this.folderPath.getAbsolutePath());
+				this.enableControls();
+			} else {
+				this.displayAlert(AlertType.ERROR, "You Selected A File!", ButtonType.OK);
+			}
+		}
+		event.setDropCompleted(true);
+		event.consume();
+	}
+
+	@FXML
 	void openFolder(ActionEvent event) {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
 		directoryChooser.setTitle("Select A Folder");
 		this.folderPath = directoryChooser.showDialog(null);
 		if (this.folderPath != null) {
-			enableControls();
+			this.enableControls();
 		} else {
-			disableControls();
+			this.disableControls();
 		}
 	}
 
@@ -93,7 +125,7 @@ public class MainFormController implements Initializable {
 		hashFolder.setOnFailed(new EventHandler<WorkerStateEvent>() {
 			@Override
 			public void handle(WorkerStateEvent event) {
-				taskFailedHashFolder();
+				taskFailedHashFolder(event);
 			}
 		});
 		hashFolder.setOnRunning(new EventHandler<WorkerStateEvent>() {
@@ -124,7 +156,7 @@ public class MainFormController implements Initializable {
 		duplicateValues.setOnFailed(new EventHandler<WorkerStateEvent>() {
 			@Override
 			public void handle(WorkerStateEvent event) {
-				taskFailedDuplicateValues();
+				taskFailedDuplicateValues(event);
 			}
 		});
 		Thread thread = new Thread(duplicateValues);
@@ -207,7 +239,7 @@ public class MainFormController implements Initializable {
 		this.LabelStatus.setText("Working");
 	}
 
-	private void taskFailedHashFolder() {
+	private void taskFailedHashFolder(WorkerStateEvent e) {
 		this.ButtonOpenFolder.setDisable(false);
 		this.ComboBoxAlgorithm.setDisable(true);
 		this.ButtonHashFolder.setDisable(true);
@@ -215,8 +247,7 @@ public class MainFormController implements Initializable {
 		this.CheckBoxIncludeSubfolders.setDisable(true);
 		this.ListViewFiles.getItems().clear();
 		this.fileHashes.clear();
-		Alert alert = new Alert(AlertType.ERROR, "You Don't Have Read/Write Permissions!", ButtonType.OK);
-		alert.show();
+		this.displayAlert(AlertType.ERROR, e.getSource().getException().getMessage(), ButtonType.OK);
 		this.LabelStatus.setText("Ready");
 	}
 
@@ -237,14 +268,13 @@ public class MainFormController implements Initializable {
 		this.LabelStatus.setText("Ready");
 	}
 
-	private void taskFailedDuplicateValues() {
+	private void taskFailedDuplicateValues(WorkerStateEvent e) {
 		this.ButtonHashFolder.setDisable(true);
 		this.ButtonRemoveDuplicateFiles.setDisable(true);
 		this.ButtonOpenFolder.setDisable(false);
 		this.ComboBoxAlgorithm.setDisable(true);
 		this.CheckBoxIncludeSubfolders.setDisable(true);
-		Alert alert = new Alert(AlertType.ERROR, "You Don't Have Read/Write Permissions!", ButtonType.OK);
-		alert.show();
+		this.displayAlert(AlertType.ERROR, e.getSource().getException().getMessage(), ButtonType.OK);
 		this.LabelStatus.setText("Ready");
 	}
 
@@ -279,5 +309,10 @@ public class MainFormController implements Initializable {
 		this.ComboBoxAlgorithm.setDisable(false);
 		this.TextFieldFolder.setText(this.folderPath.getAbsolutePath());
 		this.ListViewFiles.getItems().clear();
+	}
+
+	private void displayAlert(AlertType alertType, String alertMessage, ButtonType buttonType) {
+		Alert alert = new Alert(alertType, alertMessage, buttonType);
+		alert.show();
 	}
 }

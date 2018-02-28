@@ -13,42 +13,42 @@ public abstract class HashAlgorithms {
 	private static final String SHA3_512 = "SHA3-512";
 
 	public static String getMD5() {
-		return MD5;
+		return HashAlgorithms.MD5;
 	}
 
 	public static String getSHA1() {
-		return SHA1;
+		return HashAlgorithms.SHA1;
 	}
 
 	public static String getSHA2_224() {
-		return SHA2_224;
+		return HashAlgorithms.SHA2_224;
 	}
 
 	public static String getSHA2_256() {
-		return SHA2_256;
+		return HashAlgorithms.SHA2_256;
 	}
 
 	public static String getSHA2_384() {
-		return SHA2_384;
+		return HashAlgorithms.SHA2_384;
 	}
 
 	public static String getSHA2_512() {
-		return SHA2_512;
+		return HashAlgorithms.SHA2_512;
 	}
 
 	public static String getSHA3_224() {
-		return SHA3_224;
+		return HashAlgorithms.SHA3_224;
 	}
 
 	public static String getSHA3_256() {
-		return SHA3_256;
+		return HashAlgorithms.SHA3_256;
 	}
 
 	public static String getSHA3_384() {
-		return SHA3_384;
+		return HashAlgorithms.SHA3_384;
 	}
 
 	public static String getSHA3_512() {
-		return SHA3_512;
+		return HashAlgorithms.SHA3_512;
 	}
 }
