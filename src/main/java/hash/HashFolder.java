@@ -40,7 +40,7 @@ public class HashFolder extends Task<Map<String, String>> {
 
 	public void computeFilesHashes() throws NoSuchAlgorithmException, IOException {
 		MessageDigest digest = MessageDigest.getInstance(this.hashAlgoritm);
-		log.info("Folder To Hash" + this.folderPath);
+		log.info("Folder To Hash = " + this.folderPath);
 		long start = System.currentTimeMillis();
 		for (Path path : this.filesPaths) {
 			InputStream inputStream = new FileInputStream(path.toFile());
