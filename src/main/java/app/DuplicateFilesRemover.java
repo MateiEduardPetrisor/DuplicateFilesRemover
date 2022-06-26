@@ -2,7 +2,9 @@ package app;
 
 import java.io.IOException;
 import java.security.Security;
+
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +19,7 @@ public class DuplicateFilesRemover extends Application {
 		Security.addProvider(new BouncyCastleProvider());
 	}
 
-	public static void main(String[] args) throws IOException {
+	public static void run(String[] args) throws IOException {
 		launch(args);
 	}
 

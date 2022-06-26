@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
+
 import hash.DuplicateValues;
 import hash.HashAlgorithms;
 import hash.HashFolder;
@@ -181,15 +182,23 @@ public class MainFormController implements Initializable {
 
 	@FXML
 	void initialize() {
-		assert ButtonOpenFolder != null : "fx:id=\"ButtonOpenFolder\" was not injected: check your FXML file 'MainForm.fxml'.";
-		assert TextFieldFolder != null : "fx:id=\"TextFieldFolder\" was not injected: check your FXML file 'MainForm.fxml'.";
+		assert ButtonOpenFolder != null
+				: "fx:id=\"ButtonOpenFolder\" was not injected: check your FXML file 'MainForm.fxml'.";
+		assert TextFieldFolder != null
+				: "fx:id=\"TextFieldFolder\" was not injected: check your FXML file 'MainForm.fxml'.";
 		assert LabelFolder != null : "fx:id=\"LabelFolder\" was not injected: check your FXML file 'MainForm.fxml'.";
-		assert ListViewFiles != null : "fx:id=\"ListViewFiles\" was not injected: check your FXML file 'MainForm.fxml'.";
-		assert ComboBoxAlgorithm != null : "fx:id=\"ComboBoxAlgorithm\" was not injected: check your FXML file 'MainForm.fxml'.";
-		assert ButtonRemoveDuplicateFiles != null : "fx:id=\"ButtonRemoveDuplicateFiles\" was not injected: check your FXML file 'MainForm.fxml'.";
-		assert ButtonHashFolder != null : "fx:id=\"ButtonHashFolder\" was not injected: check your FXML file 'MainForm.fxml'.";
-		assert CheckBoxIncludeSubfolders != null : "fx:id=\"CheckBoxIncludeSubfolders\" was not injected: check your FXML file 'MainForm.fxml'.";
-		assert LabelAlgorithm != null : "fx:id=\"LabelAlgorithm\" was not injected: check your FXML file 'MainForm.fxml'.";
+		assert ListViewFiles != null
+				: "fx:id=\"ListViewFiles\" was not injected: check your FXML file 'MainForm.fxml'.";
+		assert ComboBoxAlgorithm != null
+				: "fx:id=\"ComboBoxAlgorithm\" was not injected: check your FXML file 'MainForm.fxml'.";
+		assert ButtonRemoveDuplicateFiles != null
+				: "fx:id=\"ButtonRemoveDuplicateFiles\" was not injected: check your FXML file 'MainForm.fxml'.";
+		assert ButtonHashFolder != null
+				: "fx:id=\"ButtonHashFolder\" was not injected: check your FXML file 'MainForm.fxml'.";
+		assert CheckBoxIncludeSubfolders != null
+				: "fx:id=\"CheckBoxIncludeSubfolders\" was not injected: check your FXML file 'MainForm.fxml'.";
+		assert LabelAlgorithm != null
+				: "fx:id=\"LabelAlgorithm\" was not injected: check your FXML file 'MainForm.fxml'.";
 		assert LabelStatus != null : "fx:id=\"LabelStatus\" was not injected: check your FXML file 'MainForm.fxml'.";
 	}
 

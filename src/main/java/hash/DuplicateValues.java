@@ -9,9 +9,11 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+
 import org.apache.commons.io.FileDeleteStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import javafx.concurrent.Task;
 
 public class DuplicateValues extends Task<Map<String, List<String>>> {
